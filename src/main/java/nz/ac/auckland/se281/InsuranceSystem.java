@@ -29,6 +29,8 @@ public class InsuranceSystem {
     } else {
       database.add(userName);
       MessageCli.PROFILE_CREATED.printMessage(userName, age);
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+          String.valueOf(database.size()), userName, age);
     }
 
     // TODO: Complete this method.
