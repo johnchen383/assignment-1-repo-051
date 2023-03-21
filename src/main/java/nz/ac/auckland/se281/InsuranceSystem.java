@@ -28,6 +28,7 @@ public class InsuranceSystem {
     if (userName.length() < 3) {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     } else {
+      userName = userName.toLowerCase();
       userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
       database.add(userName);
