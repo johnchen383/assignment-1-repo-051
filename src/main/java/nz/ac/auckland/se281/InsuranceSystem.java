@@ -18,8 +18,9 @@ public class InsuranceSystem {
     if (database.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
     }
-    // MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
-    // MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
+    if (database.size() > 1) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(String.valueOf(database.size()), "s", ":");
+    }
   }
 
   public void createNewProfile(String userName, String age) {
