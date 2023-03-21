@@ -23,6 +23,10 @@ public class InsuranceSystem {
     }
     if (database.size() > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(String.valueOf(database.size()), "s", ":");
+      for (Profile profile : database) {
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+            String.valueOf(database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
+      }
     }
   }
 
@@ -41,8 +45,6 @@ public class InsuranceSystem {
       Profile profile = new Profile(userName, age);
       database.add(profile);
       MessageCli.PROFILE_CREATED.printMessage(userName, age);
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
-          String.valueOf(database.size()), userName, age);
     }
   }
 
