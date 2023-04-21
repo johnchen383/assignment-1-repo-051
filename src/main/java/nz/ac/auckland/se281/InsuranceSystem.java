@@ -95,7 +95,7 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
-    int profileIndex = 0;
+  
     Profile.setClassUnloaded();
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
@@ -118,7 +118,7 @@ public class InsuranceSystem {
       MessageCli.NO_PROFILE_LOADED.printMessage();
       return;
     }
-    
+
     for(Profile profile : database) {
       if(profile.getLoaded()){
         MessageCli.PROFILE_UNLOADED.printMessage(profile.getUserName());
@@ -131,7 +131,23 @@ public class InsuranceSystem {
   }
 
   public void deleteProfile(String userName) {
-    // TODO: Complete this method.
+    userName = userName.toLowerCase();
+    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
+
+    for(Profile profile : database) {
+      if(profile.getUserName().equals(userName)){
+        if(profile.getLoaded()){
+          MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
+          return;
+        }
+
+        database.remove(profile);
+        MessageCli.PROFILE_DELETED.printMessage(userName);
+        return;
+      }
+    }
+
+    MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
   }
 
   public void createPolicy(PolicyType type, String[] options) {
