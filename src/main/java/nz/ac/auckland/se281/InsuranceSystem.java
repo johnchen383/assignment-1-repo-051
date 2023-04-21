@@ -78,6 +78,7 @@ public class InsuranceSystem {
     // Returns invalid message if the age is a non positive number
     else if (Integer.valueOf(age) <= 0) {
       MessageCli.INVALID_AGE.printMessage(age, userName);
+      
       // Checks if the username is already in the arraylist 
     } else if (invalidUsername.contains(userName)) {
       MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
@@ -95,22 +96,29 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
-  
-    Profile.setClassUnloaded();
+
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
-    // Checks if the username is already in database and sets the username and classProfile to loaded
-    for(Profile profile : database) {
-      profile.setAsUnloaded();
-      if (profile.getUserName().equals(userName) && Profile.getClassLoaded() == false) {
-        MessageCli.PROFILE_LOADED.printMessage(userName);
-        profile.setAsLoaded();
-        Profile.setClassLoaded();
-        return;
-      } 
-    }
-        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+    //Set all profiles to unloaded
+    
+      
+    // Profile.setClassUnloaded();
+
+    // for(Profile profile: database){
+    //   profile.setAsUnloaded();
+    // }
+
+    // // Checks if the username is already in database and sets the username and classProfile to loaded
+    // for(Profile profile : database) {
+    //   if (profile.getUserName().equals(userName) && Profile.getClassLoaded() == false) {
+    //     MessageCli.PROFILE_LOADED.printMessage(userName);
+    //     profile.setAsLoaded();
+    //     Profile.setClassLoaded();
+    //     return;
+    //   } 
+    // }
+    //     MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
   }
 
   public void unloadProfile() {
