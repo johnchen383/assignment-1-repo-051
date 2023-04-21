@@ -41,8 +41,8 @@ public class InsuranceSystem {
       for (Profile profile : database) {
         if(profile.getLoaded()){
           MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage("*** ",
-              String.valueOf( database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
-             profile.setAsUnloaded();
+              String.valueOf(database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
+            //  profile.setAsUnloaded();
         }
         else{
         MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
@@ -100,7 +100,7 @@ public class InsuranceSystem {
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
-    // Checks if the username is already in database
+    // Checks if the username is already in database and sets the username and classProfile to loaded
     for(Profile profile : database) {
       profile.setAsUnloaded();
       if (profile.getUserName().equals(userName) && Profile.getClassLoaded() == false) {
@@ -134,19 +134,18 @@ public class InsuranceSystem {
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
-    for(Profile profile : database) {
-      if(profile.getUserName().equals(userName)){
-        if(profile.getLoaded()){
+    for(Profile profile: database) {
+      if(profile.getUserName().equals(userName)) {
+        if(profile.getLoaded() == true){
           MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
           return;
         }
-
         database.remove(profile);
+        invalidUsername.remove(userName);
         MessageCli.PROFILE_DELETED.printMessage(userName);
         return;
       }
     }
-
     MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
   }
 
