@@ -95,23 +95,39 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
+    int profileIndex = 0;
+    Profile.setClassUnloaded();
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
     // Checks if the username is already in database
     for(Profile profile : database) {
-      if (profile.getUserName().equals(userName)) {
+      profile.setAsUnloaded();
+      if (profile.getUserName().equals(userName) && Profile.getClassLoaded() == false) {
         MessageCli.PROFILE_LOADED.printMessage(userName);
         profile.setAsLoaded();
+        Profile.setClassLoaded();
         return;
-      }
+      } 
     }
-
-    MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
   }
 
   public void unloadProfile() {
-    // TODO: Complete this method.
+    if(Profile.getClassLoaded() == false){
+      MessageCli.NO_PROFILE_LOADED.printMessage();
+      return;
+    }
+    
+    for(Profile profile : database) {
+      if(profile.getLoaded()){
+        MessageCli.PROFILE_UNLOADED.printMessage(profile.getUserName());
+        profile.setAsUnloaded();
+        Profile.setClassUnloaded();
+        return;
+      }
+    }
+    
   }
 
   public void deleteProfile(String userName) {
