@@ -37,6 +37,47 @@ public class MainTest {
     }
 
     @Test
+    public void T1_03_add_one_client_with_info() throws Exception {
+      runCommands(CREATE_PROFILE, "Jordan", "21", PRINT_DB);
+      assertContains("Database has 1 profile:");
+      assertContains("New profile created for Jordan with age 21.");
+      assertContains("1: Jordan, 21");
+      assertDoesNotContain("Database has 0 profiles", true);
+    }
+
+    @Test
+    public void T1_04_ignore_short_name() throws Exception {
+      runCommands(CREATE_PROFILE, "Jo", "21", PRINT_DB);
+      assertContains("Database has 0 profiles.");
+      assertContains(
+          "'Jo' is an invalid username, it should be at least 3 characters long. No profile was"
+              + " created.");
+      assertDoesNotContain("Database has 1 profiles", true);
+      assertDoesNotContain("New profile created", true);
+      assertDoesNotContain("21");
+    }
+
+    @Test
+    public void T1_05_add_two_clients() throws Exception {
+      runCommands(CREATE_PROFILE, "Jordan", "21", CREATE_PROFILE, "Tom", "25", PRINT_DB);
+      assertContains("Database has 2 profiles:");
+      assertContains("1: Jordan, 21");
+      assertContains("2: Tom, 25");
+      assertDoesNotContain("Database has 0 profiles", true);
+      assertDoesNotContain("Database has 1 profile", true);
+    }
+
+    @Test
+    public void T1_06_username_to_titlecase() throws Exception {
+      runCommands(CREATE_PROFILE, "jorDan", "21", CREATE_PROFILE, "TOM", "25", PRINT_DB);
+      assertContains("Database has 2 profiles:");
+      assertContains("1: Jordan, 21");
+      assertContains("2: Tom, 25");
+      assertDoesNotContain("jorDan");
+      assertDoesNotContain("TOM");
+    }
+
+    @Test
     public void T1_xx_add_one_client_with_info() throws Exception {
       runCommands(CREATE_PROFILE, "Jordan", "21", PRINT_DB);
       assertContains("Database has 1 profile:");
@@ -179,7 +220,6 @@ public class MainTest {
       assertContains("1: Jordan, 20");
       assertDoesNotContain("Database has 0 profiles", true);
       assertDoesNotContain("Jordan, -1", true);
-    
     }
   }
 
@@ -262,6 +302,8 @@ public class MainTest {
       assertDoesNotContain("*** 2: Tom, 25", true);
       assertDoesNotContain("*** 3: Jenny, 23", true);
     }
+
+    
 
     @Test
     public void T2_07_delete_profile_found() throws Exception {

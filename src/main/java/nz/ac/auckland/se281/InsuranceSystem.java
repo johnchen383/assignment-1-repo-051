@@ -61,7 +61,7 @@ public class InsuranceSystem {
     // Returns invalid message if the age is a non positive number
     else if (Integer.valueOf(age) <= 0) {
       MessageCli.INVALID_AGE.printMessage(age, userName);
-      // Checks if the username has been used before
+      // Checks if the username is already in the arraylist 
     } else if (invalidUsername.contains(userName)) {
       MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
     }
@@ -70,8 +70,10 @@ public class InsuranceSystem {
     else {
       Profile profile = new Profile(userName, age);
       database.add(profile);
+      invalidUsername.add(userName);
       MessageCli.PROFILE_CREATED.printMessage(userName, age);
     }
+
   }
 
   public void loadProfile(String userName) {
