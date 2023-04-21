@@ -77,6 +77,18 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
+    userName = userName.toLowerCase();
+    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
+
+    // Checks if the username is already in database
+    for(Profile profile : database) {
+      if (profile.getUserName().equals(userName)) {
+        MessageCli.PROFILE_LOADED.printMessage(userName);
+        return;
+      }
+    }
+    MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+
     
   }
 
