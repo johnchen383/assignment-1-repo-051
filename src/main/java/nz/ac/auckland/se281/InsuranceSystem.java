@@ -70,8 +70,7 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
-
-    // TODO: Complete this method.
+    
   }
 
   public void unloadProfile() {
