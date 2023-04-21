@@ -24,10 +24,15 @@ public class InsuranceSystem {
     // If the database only has 1 profile
     if (database.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
+
+      for (Profile profile : database) {
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+            String.valueOf(database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
+      }
     }
 
     // If the database has more than 1 profile
-    if (database.size() > 1) {
+    else if (database.size() > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(String.valueOf(database.size()), "s", ":");
 
       // Prints out the number of profiles
@@ -46,6 +51,8 @@ public class InsuranceSystem {
    * @param age
    */
   public void createNewProfile(String userName, String age) {
+    userName = userName.toLowerCase();
+    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
     // Any test cases that are under 3 would deliver an invalid message
     if (userName.length() < 3) {
@@ -61,8 +68,6 @@ public class InsuranceSystem {
     // Makes the username into a proper noun with a capital first word and the rest lower case and
     // adds the username to the database
     else {
-      userName = userName.toLowerCase();
-      userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
       Profile profile = new Profile(userName, age);
       database.add(profile);
       MessageCli.PROFILE_CREATED.printMessage(userName, age);
