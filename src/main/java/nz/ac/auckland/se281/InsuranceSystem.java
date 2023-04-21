@@ -14,6 +14,7 @@ public class InsuranceSystem {
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
   }
+
   /** The printDatabase method is responsible for printing how many profiles the database has */
   public void printDatabase() {
 
@@ -21,6 +22,7 @@ public class InsuranceSystem {
     if (database.size() == 0) {
       System.out.println("Database has 0 profiles.");
     }
+
     // If the database only has 1 profile
     if (database.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
@@ -37,10 +39,18 @@ public class InsuranceSystem {
 
       // Prints out the number of profiles
       for (Profile profile : database) {
+        if(profile.getLoaded()){
+          MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage("*** ",
+              String.valueOf( database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
+             profile.setAsUnloaded();
+        }
+        else{
         MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
             String.valueOf(database.indexOf(profile) + 1), profile.getUserName(), profile.getAge());
       }
     }
+    }
+    
   }
 
   /**
@@ -54,10 +64,17 @@ public class InsuranceSystem {
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
+    // Checks if a profile is already loaded
+    if(Profile.getClassLoaded() == true) {
+      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
+      return;
+    }
+
     // Any test cases that are under 3 would deliver an invalid message
     if (userName.length() < 3) {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     }
+
     // Returns invalid message if the age is a non positive number
     else if (Integer.valueOf(age) <= 0) {
       MessageCli.INVALID_AGE.printMessage(age, userName);
@@ -65,6 +82,7 @@ public class InsuranceSystem {
     } else if (invalidUsername.contains(userName)) {
       MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
     }
+
     // Makes the username into a proper noun with a capital first word and the rest lower case and
     // adds the username to the database
     else {
@@ -84,12 +102,12 @@ public class InsuranceSystem {
     for(Profile profile : database) {
       if (profile.getUserName().equals(userName)) {
         MessageCli.PROFILE_LOADED.printMessage(userName);
+        profile.setAsLoaded();
         return;
       }
     }
-    MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
 
-    
+    MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
   }
 
   public void unloadProfile() {
