@@ -4,7 +4,7 @@ public class Profile {
   private String userName;
   private String age;
   private boolean Loaded = false;
-  private static boolean classLoaded = false;
+
 
   public Profile(String userName, String age) {
     this.userName = userName;
@@ -32,15 +32,5 @@ public class Profile {
     return Loaded;
   }
 
-  public static void setClassLoaded() {
-    classLoaded = true;
-  }
 
-  public static void setClassUnloaded() {
-    classLoaded = false;
-  }
-
-  public static boolean getClassLoaded() {
-    return classLoaded;
-  }
 }

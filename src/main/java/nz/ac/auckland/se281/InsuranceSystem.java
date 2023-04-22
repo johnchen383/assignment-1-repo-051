@@ -64,10 +64,15 @@ public class InsuranceSystem {
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
-    // Checks if a profile is already loaded
-    if(Profile.getClassLoaded() == true) {
-      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
-      return;
+    //loop through all profiles
+    for(Profile profile : database) {
+      //if the profile is loaded
+      if(profile.getLoaded()){
+        //print message
+        MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
+        //return
+        return;
+      }
     }
 
     // Any test cases that are under 3 would deliver an invalid message
@@ -100,40 +105,42 @@ public class InsuranceSystem {
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
 
-    //Set all profiles to unloaded
-    
-      
+    //Set classProfile to unloaded
     // Profile.setClassUnloaded();
 
-    // for(Profile profile: database){
-    //   profile.setAsUnloaded();
-    // }
+    //Set all profiles to unloaded
+    for(Profile profile: database){
+      profile.setAsUnloaded();
+    }
+    
+    // Checks if the username is already in database and sets the username and classProfile to loaded
+    for(Profile profile : database) {
+      if (profile.getUserName().equals(userName)) {
+        MessageCli.PROFILE_LOADED.printMessage(userName);
+        profile.setAsLoaded();
+        // Profile.setClassLoaded();
+        return;
+      } 
+    }
+        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
 
-    // // Checks if the username is already in database and sets the username and classProfile to loaded
-    // for(Profile profile : database) {
-    //   if (profile.getUserName().equals(userName) && Profile.getClassLoaded() == false) {
-    //     MessageCli.PROFILE_LOADED.printMessage(userName);
-    //     profile.setAsLoaded();
-    //     Profile.setClassLoaded();
-    //     return;
-    //   } 
-    // }
-    //     MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
   }
 
   public void unloadProfile() {
-    if(Profile.getClassLoaded() == false){
-      MessageCli.NO_PROFILE_LOADED.printMessage();
-      return;
-    }
+
+    // if(Profile.getClassLoaded() == false){
+    //   MessageCli.NO_PROFILE_LOADED.printMessage();
+    //   return;
+    // }
 
     for(Profile profile : database) {
       if(profile.getLoaded()){
         MessageCli.PROFILE_UNLOADED.printMessage(profile.getUserName());
         profile.setAsUnloaded();
-        Profile.setClassUnloaded();
+        // Profile.setClassUnloaded();
         return;
       }
+      MessageCli.NO_PROFILE_LOADED.printMessage();
     }
     
   }
@@ -144,6 +151,9 @@ public class InsuranceSystem {
 
     for(Profile profile: database) {
       if(profile.getUserName().equals(userName)) {
+        // System.out.println(profile.getUserName());
+        // System.out.println(profile.getLoaded());
+        // System.out.println(Profile.getClassLoaded());
         if(profile.getLoaded() == true){
           MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
           return;

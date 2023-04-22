@@ -4,6 +4,8 @@ import static nz.ac.auckland.se281.Main.Command.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jgit.api.DeleteBranchCommand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -331,6 +333,20 @@ public class MainTest {
       assertContains("2: Tom, 25");
       assertContains("3: Jenny, 23");
     }
+
+    // @Test 
+    // public void T2_XX_delete_profile_not_found() throws Exception {
+    //   runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "jordan", LOAD_PROFILE, "tom", LOAD_PROFILE, "jenny",
+    //    DELETE_PROFILE, "alex", DELETE_PROFILE, "jordan", PRINT_DB));
+
+    //   assertContains("Profile deleted for Jordan");
+    //   // assertDoesNotContain("Profile deleted for Alex", true);
+
+    //   assertContains("Database has 2 profiles:");
+    //   // assertContains("1: Jordan, 21");
+    //   assertContains("1: Tom, 25");
+    //   assertContains("*** 2: Jenny, 23");
+    // }
   }
 
   public static class Task3 extends CliTest {
