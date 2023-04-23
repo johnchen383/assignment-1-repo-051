@@ -299,18 +299,44 @@ public class InsuranceSystem {
         profile.increasePolicyCount();
         if (type == PolicyType.HOME) {
           if (options[2].startsWith("y") || options[2].startsWith("Y")) {
-            options[2] = "1";
+            options[2] = "True";
           } else {
-            options[2] = "0";
+            options[2] = "False";
           }
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUserName());
+          Home policy =
+              new Home(Integer.parseInt(options[0]), options[1], Boolean.parseBoolean(options[2]));
+          profile.addPolicy(policy);
           // Create a new home policy
-          MessageCli.PRINT_DB_HOME_POLICY.printMessage(options[1], options[0], "20000", "20000");
-          for (String string : options) {
-            System.out.println(string);
-            // Add the options to the policy
+          MessageCli.PRINT_DB_HOME_POLICY.printMessage(
+              options[1], options[0], String.valueOf(policy.basePremium()), "20000");
+        } else if (type == PolicyType.CAR) {
+
+          if (options[3].startsWith("y") || options[3].startsWith("Y")) {
+            options[3] = "True";
+          } else {
+            options[3] = "False";
           }
+          MessageCli.NEW_POLICY_CREATED.printMessage("car", profile.getUserName());
+          Car policy =
+              new Car(
+                  Integer.parseInt(options[0]),
+                  options[1],
+                  options[2],
+                  Boolean.parseBoolean(options[3]),
+                  Integer.parseInt(profile.getAge()));
+          profile.addPolicy(policy);
+
+          MessageCli.PRINT_DB_CAR_POLICY.printMessage(
+              options[1], options[0], String.valueOf(policy.basePremium()), "5580");
+        } else if (type == PolicyType.LIFE) {
         }
+        MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
+        Life policy = new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
+        profile.addPolicy(policy);
+
+        MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
+            options[0], String.valueOf(policy.basePremium()), "11070");
       }
     }
   }

@@ -26,18 +26,19 @@ public class Life extends Policy {
   }
 
   @Override
-  public double basePremium() {
-    if (age > 100) {
+  public int basePremium() {
+    if (getAge() > 100) {
       MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage();
-      return 0.0;
+      return 0;
     }
 
     if (hasLifePolicy) {
       MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage();
-      return 0.0;
+      return 0;
     }
-    int sum = getSum();
-    sum = sum * (1 + age / 100) / 100;
-    return sum;
+    double sum = getSum();
+    sum /= 100;
+    sum *= (1 + (double) getAge() / 100);
+    return (int) sum;
   }
 }

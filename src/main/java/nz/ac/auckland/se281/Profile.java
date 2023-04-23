@@ -7,7 +7,7 @@ public class Profile {
   private String age;
   private boolean Loaded = false;
   private int policyCount = 0;
-  public ArrayList<Policy> policies = new ArrayList<Policy>();
+  public ArrayList<Policy> profPolicies = new ArrayList<Policy>();
 
   public Profile(String userName, String age) {
     this.userName = userName;
@@ -47,7 +47,7 @@ public class Profile {
     policyCount--;
   }
 
-  public void addHomePolicy(String ToInsure, String address, String rental) {
-    policies.add(new Home(Integer.parseInt(ToInsure), address, Boolean.parseBoolean(rental)));
+  public void addPolicy(Policy policy) {
+    this.profPolicies.add(policy);
   }
 }

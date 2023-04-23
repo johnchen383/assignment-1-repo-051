@@ -4,7 +4,6 @@ public class Car extends Policy {
   private String makeNmodel;
   private String plate;
   private boolean breakdown;
-  private int age;
 
   public Car(int sumToInsure, String makeNmodel, String plate, boolean breakdown, int age) {
     super(sumToInsure);
@@ -35,7 +34,7 @@ public class Car extends Policy {
   }
 
   @Override
-  public double basePremium() {
+  public int basePremium() {
     int sum = getSum();
     if (getAge() < 25) {
       sum *= .15;

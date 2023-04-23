@@ -8,7 +8,7 @@ public class Policy {
     this.sumToInsure = sumToInsure;
   }
 
-  public double basePremium() {
-    return 0.0;
+  public int basePremium() {
+    return 0;
   }
 }
