@@ -4,8 +4,6 @@ import static nz.ac.auckland.se281.Main.Command.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.jgit.api.DeleteBranchCommand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -15,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
   MainTest.Task1.class,
   MainTest.Task2.class, // Uncomment this line when to start Task 2
-  // MainTest.Task3.class, // Uncomment this line when to start Task 3
+  MainTest.Task3.class, // Uncomment this line when to start Task 3
   // MainTest.YourTests.class, // Uncomment this line to run your own tests
 })
 public class MainTest {
@@ -305,8 +303,6 @@ public class MainTest {
       assertDoesNotContain("*** 3: Jenny, 23", true);
     }
 
-    
-
     @Test
     public void T2_07_delete_profile_found() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, DELETE_PROFILE, "jordan", PRINT_DB));
@@ -334,9 +330,10 @@ public class MainTest {
       assertContains("3: Jenny, 23");
     }
 
-    // @Test 
+    // @Test
     // public void T2_XX_delete_profile_not_found() throws Exception {
-    //   runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "jordan", LOAD_PROFILE, "tom", LOAD_PROFILE, "jenny",
+    //   runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "jordan", LOAD_PROFILE, "tom",
+    // LOAD_PROFILE, "jenny",
     //    DELETE_PROFILE, "alex", DELETE_PROFILE, "jordan", PRINT_DB));
 
     //   assertContains("Profile deleted for Jordan");
