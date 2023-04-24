@@ -60,9 +60,8 @@ public class Profile {
 
   public void setAsPremiumTwo() {
     for (Policy policy : profPolicies) {
-      premiumSum += policy.basePremium();
+      premiumSum += 0.9 * policy.basePremium();
     }
-    premiumSum *= 0.9;
   }
 
   public void setAsPremiumThree() {
@@ -74,5 +73,9 @@ public class Profile {
 
   public int getPremiumSum() {
     return premiumSum;
+  }
+
+  public ArrayList<Policy> getPolicy() {
+    return profPolicies;
   }
 }

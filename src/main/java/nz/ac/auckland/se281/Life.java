@@ -27,10 +27,6 @@ public class Life extends Policy {
 
   @Override
   public int basePremium() {
-    if (getAge() > 100) {
-      MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage();
-      return 0;
-    }
 
     if (hasLifePolicy) {
       MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage();

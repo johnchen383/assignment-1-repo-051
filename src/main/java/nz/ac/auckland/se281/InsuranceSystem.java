@@ -96,6 +96,36 @@ public class InsuranceSystem {
               String.valueOf(profile.getPremiumSum()));
         }
       }
+
+      for (Policy policy : profile.getPolicy()) {
+        int discount = policy.basePremium();
+        if (profile.getPolicyCount() == 2) {
+          discount = (int) (0.9 * policy.basePremium());
+        } else if (profile.getPolicyCount() >= 3) {
+          discount = (int) (0.8 * policy.basePremium());
+        }
+        if (policy instanceof Home) {
+          Home newPol = (Home) policy;
+          MessageCli.PRINT_DB_HOME_POLICY.printMessage(
+              newPol.getAddress(),
+              String.valueOf(newPol.getSum()),
+              String.valueOf(newPol.basePremium()),
+              String.valueOf(discount));
+        } else if (policy instanceof Life) {
+          Life newPol = (Life) policy;
+          MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
+              String.valueOf(newPol.getSum()),
+              String.valueOf(newPol.basePremium()),
+              String.valueOf(discount));
+        } else if (policy instanceof Car) {
+          Car newPol = (Car) policy;
+          MessageCli.PRINT_DB_CAR_POLICY.printMessage(
+              newPol.getMakeNmodel(),
+              String.valueOf(newPol.getSum()),
+              String.valueOf(newPol.basePremium()),
+              String.valueOf(discount));
+        }
+      }
     }
   }
 
@@ -222,7 +252,6 @@ public class InsuranceSystem {
       }
 
       if (profile.getLoaded()) {
-        profile.increasePolicyCount();
         if (type == PolicyType.HOME) {
           if (options[2].startsWith("y") || options[2].startsWith("Y")) {
             options[2] = "True";
@@ -232,13 +261,14 @@ public class InsuranceSystem {
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUserName());
           Home policy =
               new Home(Integer.parseInt(options[0]), options[1], Boolean.parseBoolean(options[2]));
+          profile.increasePolicyCount();
           profile.addPolicy(policy);
           // profile.increasePolicyCount();
           if (profile.getPolicyCount() == 1) {
             profile.setAsPremiumOne();
           } else if (profile.getPolicyCount() == 2) {
             profile.setAsPremiumTwo();
-          } else if (profile.getPolicyCount() == 3) {
+          } else if (profile.getPolicyCount() >= 3) {
             profile.setAsPremiumThree();
           }
 
@@ -263,21 +293,26 @@ public class InsuranceSystem {
             profile.setAsPremiumOne();
           } else if (profile.getPolicyCount() == 2) {
             profile.setAsPremiumTwo();
-          } else if (profile.getPolicyCount() == 3) {
+          } else if (profile.getPolicyCount() >= 3) {
             profile.setAsPremiumThree();
           }
 
         } else if (type == PolicyType.LIFE) {
-          MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
-          Life policy = new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
-          profile.addPolicy(policy);
-          // profile.increasePolicyCount();
-          if (profile.getPolicyCount() == 1) {
-            profile.setAsPremiumOne();
-          } else if (profile.getPolicyCount() == 2) {
-            profile.setAsPremiumTwo();
-          } else if (profile.getPolicyCount() == 3) {
-            profile.setAsPremiumThree();
+          if (Integer.parseInt(profile.getAge()) >= 100) {
+            MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUserName());
+          } else {
+            MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
+            Life policy =
+                new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
+            profile.addPolicy(policy);
+            // profile.increasePolicyCount();
+            if (profile.getPolicyCount() == 1) {
+              profile.setAsPremiumOne();
+            } else if (profile.getPolicyCount() == 2) {
+              profile.setAsPremiumTwo();
+            } else if (profile.getPolicyCount() >= 3) {
+              profile.setAsPremiumThree();
+            }
           }
         }
       }
