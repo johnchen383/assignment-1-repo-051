@@ -6,8 +6,9 @@ public class Profile {
   private String userName;
   private String age;
   private boolean Loaded = false;
-  private int policyCount = 0;
+  public int policyCount = 0;
   public ArrayList<Policy> profPolicies = new ArrayList<Policy>();
+  private int premiumSum = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName;
@@ -49,5 +50,29 @@ public class Profile {
 
   public void addPolicy(Policy policy) {
     this.profPolicies.add(policy);
+  }
+
+  public void setAsPremiumOne() {
+    for (Policy policy : profPolicies) {
+      premiumSum += policy.basePremium();
+    }
+  }
+
+  public void setAsPremiumTwo() {
+    for (Policy policy : profPolicies) {
+      premiumSum += policy.basePremium();
+    }
+    premiumSum *= 0.9;
+  }
+
+  public void setAsPremiumThree() {
+    for (Policy policy : profPolicies) {
+      premiumSum += policy.basePremium();
+    }
+    premiumSum *= 0.8;
+  }
+
+  public int getPremiumSum() {
+    return premiumSum;
   }
 }

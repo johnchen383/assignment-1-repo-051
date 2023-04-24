@@ -26,148 +26,74 @@ public class InsuranceSystem {
     // If the database only has 1 profile
     if (database.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
-
-      // Prints out the number of profiles
-      // for (Profile profile : database) {
-      //   MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
-      //       String.valueOf(database.indexOf(profile) + 1), profile.getUserName(),
-      // profile.getAge());
-      for (Profile profile : database) {
-
-        // If the profile is loaded print out the profile with the loaded message
-        if (profile.getLoaded() == true) {
-          if (profile.getPolicyCount() == 0) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          } else if (profile.getPolicyCount() == 1) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "y");
-          } else {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          }
-          // MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
-          //     "*** ",
-          //     String.valueOf(database.indexOf(profile) + 1),
-          //     profile.getUserName(),
-          //     profile.getAge());
-        } else {
-
-          if (profile.getPolicyCount() == 0) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          } else if (profile.getPolicyCount() == 1) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "y");
-          } else {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          }
-        }
-      }
-    }
-    // If the database has more than 1 profile
-    else if (database.size() > 1) {
+    } else if (database.size() > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(String.valueOf(database.size()), "s", ":");
+    }
 
-      // Prints out the number of profiles
-      for (Profile profile : database) {
+    for (Profile profile : database) {
 
-        // If the profile is loaded print out the profile with the loaded message
-        if (profile.getLoaded() == true) {
-          if (profile.getPolicyCount() == 0) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          } else if (profile.getPolicyCount() == 1) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "y");
-          } else {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "*** ",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          }
-          // MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
-          //     "*** ",
-          //     String.valueOf(database.indexOf(profile) + 1),
-          //     profile.getUserName(),
-          //     profile.getAge());
+      // If the profile is loaded print out the profile with the loaded message
+      if (profile.getLoaded() == true) {
+        if (profile.getPolicyCount() == 0) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "*** ",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "ies",
+              String.valueOf(profile.getPremiumSum()));
+
+        } else if (profile.getPolicyCount() == 1) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "*** ",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "y",
+              String.valueOf(profile.getPremiumSum()));
         } else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "*** ",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "ies",
+              String.valueOf(profile.getPremiumSum()));
+        }
 
-          if (profile.getPolicyCount() == 0) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          } else if (profile.getPolicyCount() == 1) {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "y");
-          } else {
-            MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-                "",
-                String.valueOf(database.indexOf(profile) + 1),
-                profile.getUserName(),
-                profile.getAge(),
-                String.valueOf(profile.getPolicyCount()),
-                "ies");
-          }
+      } else {
 
-          // If the profile is not loaded print out the profile without the loaded message
-          // MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
-          //     String.valueOf(database.indexOf(profile) + 1),
-          //     profile.getUserName(),
-          //     profile.getAge());
+        if (profile.getPolicyCount() == 0) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "ies",
+              String.valueOf(profile.getPremiumSum()));
+
+        } else if (profile.getPolicyCount() == 1) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "y",
+              String.valueOf(profile.getPremiumSum()));
+        } else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "",
+              String.valueOf(database.indexOf(profile) + 1),
+              profile.getUserName(),
+              profile.getAge(),
+              String.valueOf(profile.getPolicyCount()),
+              "ies",
+              String.valueOf(profile.getPremiumSum()));
         }
       }
     }
@@ -307,9 +233,15 @@ public class InsuranceSystem {
           Home policy =
               new Home(Integer.parseInt(options[0]), options[1], Boolean.parseBoolean(options[2]));
           profile.addPolicy(policy);
-          // Create a new home policy
-          MessageCli.PRINT_DB_HOME_POLICY.printMessage(
-              options[1], options[0], String.valueOf(policy.basePremium()), "20000");
+          // profile.increasePolicyCount();
+          if (profile.getPolicyCount() == 1) {
+            profile.setAsPremiumOne();
+          } else if (profile.getPolicyCount() == 2) {
+            profile.setAsPremiumTwo();
+          } else if (profile.getPolicyCount() == 3) {
+            profile.setAsPremiumThree();
+          }
+
         } else if (type == PolicyType.CAR) {
 
           if (options[3].startsWith("y") || options[3].startsWith("Y")) {
@@ -326,17 +258,28 @@ public class InsuranceSystem {
                   Boolean.parseBoolean(options[3]),
                   Integer.parseInt(profile.getAge()));
           profile.addPolicy(policy);
+          // profile.increasePolicyCount();
+          if (profile.getPolicyCount() == 1) {
+            profile.setAsPremiumOne();
+          } else if (profile.getPolicyCount() == 2) {
+            profile.setAsPremiumTwo();
+          } else if (profile.getPolicyCount() == 3) {
+            profile.setAsPremiumThree();
+          }
 
-          MessageCli.PRINT_DB_CAR_POLICY.printMessage(
-              options[1], options[0], String.valueOf(policy.basePremium()), "5580");
         } else if (type == PolicyType.LIFE) {
+          MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
+          Life policy = new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
+          profile.addPolicy(policy);
+          // profile.increasePolicyCount();
+          if (profile.getPolicyCount() == 1) {
+            profile.setAsPremiumOne();
+          } else if (profile.getPolicyCount() == 2) {
+            profile.setAsPremiumTwo();
+          } else if (profile.getPolicyCount() == 3) {
+            profile.setAsPremiumThree();
+          }
         }
-        MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
-        Life policy = new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
-        profile.addPolicy(policy);
-
-        MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
-            options[0], String.valueOf(policy.basePremium()), "11070");
       }
     }
   }
