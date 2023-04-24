@@ -53,18 +53,21 @@ public class Profile {
   }
 
   public void setAsPremiumOne() {
+    premiumSum = 0;
     for (Policy policy : profPolicies) {
       premiumSum += policy.basePremium();
     }
   }
 
   public void setAsPremiumTwo() {
+    premiumSum = 0;
     for (Policy policy : profPolicies) {
       premiumSum += 0.9 * policy.basePremium();
     }
   }
 
   public void setAsPremiumThree() {
+    premiumSum = 0;
     for (Policy policy : profPolicies) {
       premiumSum += policy.basePremium();
     }

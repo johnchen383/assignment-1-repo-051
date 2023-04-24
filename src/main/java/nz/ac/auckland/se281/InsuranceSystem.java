@@ -288,7 +288,7 @@ public class InsuranceSystem {
                   Boolean.parseBoolean(options[3]),
                   Integer.parseInt(profile.getAge()));
           profile.addPolicy(policy);
-          // profile.increasePolicyCount();
+          profile.increasePolicyCount();
           if (profile.getPolicyCount() == 1) {
             profile.setAsPremiumOne();
           } else if (profile.getPolicyCount() == 2) {
@@ -305,7 +305,7 @@ public class InsuranceSystem {
             Life policy =
                 new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
             profile.addPolicy(policy);
-            // profile.increasePolicyCount();
+            profile.increasePolicyCount();
             if (profile.getPolicyCount() == 1) {
               profile.setAsPremiumOne();
             } else if (profile.getPolicyCount() == 2) {
