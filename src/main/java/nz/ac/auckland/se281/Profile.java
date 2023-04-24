@@ -9,6 +9,7 @@ public class Profile {
   public int policyCount = 0;
   public ArrayList<Policy> profPolicies = new ArrayList<Policy>();
   private int premiumSum = 0;
+  boolean hasLifePolicy = false;
 
   public Profile(String userName, String age) {
     this.userName = userName;
@@ -80,5 +81,13 @@ public class Profile {
 
   public ArrayList<Policy> getPolicy() {
     return profPolicies;
+  }
+
+  public boolean getHasLifePolicy() {
+    return hasLifePolicy;
+  }
+
+  public void giveLifePolicy() {
+    hasLifePolicy = true;
   }
 }

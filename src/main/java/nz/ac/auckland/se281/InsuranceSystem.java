@@ -145,7 +145,7 @@ public class InsuranceSystem {
       // if the profile is loaded
       if (profile.getLoaded()) {
         // print message
-        MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
+        MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(profile.getUserName());
         // return
         return;
       }
@@ -183,29 +183,30 @@ public class InsuranceSystem {
     // Makes the username into a proper noun with a capital first word and the rest lower case
     userName = userName.toLowerCase();
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1);
-
-    // Set all profiles to unloaded
-    for (Profile profile : database) {
-      // if(!profile.getLoaded()){
-      //   profile.setAsUnloaded();
-      // }
-      // else{
-      profile.setAsLoaded();
-      // }
-    }
-
-    // Checks if the username is already in database and sets the username and classProfile to
-    // loaded
+    int i = 0;
     for (Profile profile : database) {
       if (profile.getUserName().equals(userName)) {
-        MessageCli.PROFILE_LOADED.printMessage(userName);
-        profile.setAsLoaded();
-        return;
+        i++;
       }
     }
+    if (i == 0) {
+      MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+    } else {
+      // Set all profiles to unloaded
+      for (Profile prof : database) {
+        prof.setAsUnloaded();
+      }
 
-    // If the username is not in the database print out the message
-    MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+      // Checks if the username is already in database and sets the username and classProfile to
+      // loaded
+      for (Profile pro : database) {
+        if (pro.getUserName().equals(userName)) {
+          MessageCli.PROFILE_LOADED.printMessage(userName);
+          pro.setAsLoaded();
+          return;
+        }
+      }
+    }
   }
 
   // The method unloadProfile can be used to unload a profile given the profile is loaded
@@ -305,11 +306,14 @@ public class InsuranceSystem {
         } else if (type == PolicyType.LIFE) {
           if (Integer.parseInt(profile.getAge()) >= 100) {
             MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUserName());
+          } else if (profile.getHasLifePolicy()) {
+            MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(profile.getUserName());
           } else {
             MessageCli.NEW_POLICY_CREATED.printMessage("life", profile.getUserName());
             Life policy =
                 new Life(Integer.parseInt(options[0]), Integer.parseInt(profile.getAge()));
             profile.addPolicy(policy);
+            profile.giveLifePolicy();
             profile.increasePolicyCount();
             if (profile.getPolicyCount() == 1) {
               profile.setAsPremiumOne();
