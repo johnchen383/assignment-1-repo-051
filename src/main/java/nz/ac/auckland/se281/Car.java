@@ -34,6 +34,8 @@ public class Car extends Policy {
   }
 
   @Override
+  // This is the method that calculates the premium for a car policy based on the age, sum insured
+  // and age
   public int basePremium() {
     int sum = getSum();
     if (getAge() < 25) {

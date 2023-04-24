@@ -23,6 +23,8 @@ public class Home extends Policy {
   }
 
   @Override
+  // This is the method that calculates the premium for a home policy based on the sum insured and
+  // age
   public int basePremium() {
     int sum = getSum();
     if (getRental() == true) {

@@ -26,7 +26,10 @@ public class InsuranceSystem {
     // If the database only has 1 profile
     if (database.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
-    } else if (database.size() > 1) {
+    }
+
+    // If the database has more than 1 profile
+    else if (database.size() > 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(String.valueOf(database.size()), "s", ":");
     }
 
@@ -34,6 +37,8 @@ public class InsuranceSystem {
 
       // If the profile is loaded print out the profile with the loaded message
       if (profile.getLoaded() == true) {
+
+        // Prints the loaded profile depending on the amount of policies
         if (profile.getPolicyCount() == 0) {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
               "*** ",
@@ -64,7 +69,10 @@ public class InsuranceSystem {
               String.valueOf(profile.getPremiumSum()));
         }
 
-      } else {
+      }
+
+      // If the profile is not loaded print out the profile without the loaded message
+      else {
 
         if (profile.getPolicyCount() == 0) {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
@@ -98,12 +106,18 @@ public class InsuranceSystem {
       }
 
       for (Policy policy : profile.getPolicy()) {
+
+        // Calculate the discount
         int discount = policy.basePremium();
+
+        // Calculate the discount based on the amount of policies
         if (profile.getPolicyCount() == 2) {
           discount = (int) (0.9 * policy.basePremium());
         } else if (profile.getPolicyCount() >= 3) {
           discount = (int) (0.8 * policy.basePremium());
         }
+
+        // Print the policies depending on the type of policy they are
         if (policy instanceof Home) {
           Home newPol = (Home) policy;
           MessageCli.PRINT_DB_HOME_POLICY.printMessage(
@@ -142,11 +156,9 @@ public class InsuranceSystem {
 
     // loop through all profiles
     for (Profile profile : database) {
-      // if the profile is loaded
+      // if the profile is loaded, print error message
       if (profile.getLoaded()) {
-        // print message
         MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(profile.getUserName());
-        // return
         return;
       }
     }
@@ -251,25 +263,35 @@ public class InsuranceSystem {
     MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
   }
 
+  // The method createPolicy can be used to create a policy takin in the type of policy, and string
+  // options
   public void createPolicy(PolicyType type, String[] options) {
     for (Profile profile : database) {
+
+      // If the profile is not loaded, sends an error message
       if (!profile.getLoaded()) {
         MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
       }
 
+      // If the profile is loaded, creates a new profile depending on the type of policy
       if (profile.getLoaded()) {
         if (type == PolicyType.HOME) {
+
+          // Checks if the user input is yes or no, and converts it to true or false
           if (options[2].startsWith("y") || options[2].startsWith("Y")) {
             options[2] = "True";
           } else {
             options[2] = "False";
           }
+
+          // Prints out the message that a new policy has been created
           MessageCli.NEW_POLICY_CREATED.printMessage("home", profile.getUserName());
           Home policy =
               new Home(Integer.parseInt(options[0]), options[1], Boolean.parseBoolean(options[2]));
           profile.increasePolicyCount();
           profile.addPolicy(policy);
-          // profile.increasePolicyCount();
+
+          // Checks the number of policies and gets to discount depending on the number of policies
           if (profile.getPolicyCount() == 1) {
             profile.setAsPremiumOne();
           } else if (profile.getPolicyCount() == 2) {
@@ -278,7 +300,10 @@ public class InsuranceSystem {
             profile.setAsPremiumThree();
           }
 
-        } else if (type == PolicyType.CAR) {
+        }
+
+        // Same logic but for car policy
+        else if (type == PolicyType.CAR) {
 
           if (options[3].startsWith("y") || options[3].startsWith("Y")) {
             options[3] = "True";
@@ -303,7 +328,10 @@ public class InsuranceSystem {
             profile.setAsPremiumThree();
           }
 
-        } else if (type == PolicyType.LIFE) {
+        }
+
+        // Same logic but for life policy
+        else if (type == PolicyType.LIFE) {
           if (Integer.parseInt(profile.getAge()) >= 100) {
             MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(profile.getUserName());
           } else if (profile.getHasLifePolicy()) {

@@ -16,6 +16,9 @@ public class Life extends Policy {
   }
 
   @Override
+
+  // This is the method that calculates the premium for a life policy based on the age and sum
+  // insured
   public int basePremium() {
     double sum = getSum();
     sum /= 100;
