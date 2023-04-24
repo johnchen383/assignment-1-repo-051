@@ -186,7 +186,12 @@ public class InsuranceSystem {
 
     // Set all profiles to unloaded
     for (Profile profile : database) {
-      profile.setAsUnloaded();
+      // if(!profile.getLoaded()){
+      //   profile.setAsUnloaded();
+      // }
+      // else{
+      profile.setAsLoaded();
+      // }
     }
 
     // Checks if the username is already in database and sets the username and classProfile to
